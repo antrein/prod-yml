@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: bc-dashboard
+ namespace: production
+ labels:
+   app: bc-dashboard #create deployment with label name
+   commit-hash: "0dac59f"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: bc-dashboard-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: bc-dashboard-pods #create pods with label name
+   spec:
+     containers:
+       - name: bc-dashboard-cont
+         image: reyshazni/bc-dashboard-production:0dac59f
+         imagePullPolicy: Always
+         ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 9090
+            protocol: TCP
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bc-dashboard
+  namespace: production
+  labels:
+   app: bc-dashboard #create services with label name
+   commit-hash: "0dac59f"
+spec:
+  selector:
+    app: bc-dashboard-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - name: rest
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  - name: grpc
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
