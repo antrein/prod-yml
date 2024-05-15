@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: infra-manager
+ namespace: production
+ labels:
+   app: infra-manager #create deployment with label name
+   commit-hash: "4a3bfb6"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: infra-manager-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: infra-manager-pods #create pods with label name
+   spec:
+     containers:
+       - name: infra-manager-cont
+         image: reyshazni/infra-manager-production:4a3bfb6
+         imagePullPolicy: Always
+         ports:
+           - containerPort: 8000
+         envFrom:
+           - secretRef:
+              name: infra-manager.env
+              optional: true       
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-manager
+  namespace: production
+  labels:
+   app: infra-manager #create services with label name
+   commit-hash: "4a3bfb6"
+spec:
+  selector:
+    app: infra-manager-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
