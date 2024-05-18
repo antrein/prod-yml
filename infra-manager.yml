@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: infra-manager #create deployment with label name
-   commit-hash: "c8642e8"
+   commit-hash: "1674acd"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: infra-manager-cont
-         image: reyshazni/infra-manager-production:c8642e8
+         image: reyshazni/infra-manager-production:1674acd
          imagePullPolicy: Always
          ports:
            - containerPort: 8000
@@ -35,7 +35,7 @@ metadata:
   namespace: production
   labels:
    app: infra-manager #create services with label name
-   commit-hash: "c8642e8"
+   commit-hash: "1674acd"
 spec:
   selector:
     app: infra-manager-pods #targeting service name
