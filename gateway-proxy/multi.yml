@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gateway-proxy
-        image: reyshazni/gateway-proxy-production:abdeb81
+        image: reyshazni/gateway-proxy-production:293e18c
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
