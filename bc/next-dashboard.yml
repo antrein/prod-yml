@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: next-dashboard #create deployment with label name
-   commit-hash: "71e9194"
+   commit-hash: "339218f"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: next-dashboard-cont
-         image: reyshazni/next-dashboard-production:71e9194
+         image: reyshazni/next-dashboard-production:339218f
          imagePullPolicy: Always
          ports:
            - containerPort: 3000  
@@ -31,7 +31,7 @@ metadata:
   namespace: production
   labels:
    app: next-dashboard #create services with label name
-   commit-hash: "71e9194"
+   commit-hash: "339218f"
 spec:
   selector:
     app: next-dashboard-pods #targeting service name
