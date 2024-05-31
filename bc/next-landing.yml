@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: next-landing
+ namespace: production
+ labels:
+   app: next-landing #create deployment with label name
+   commit-hash: "50bb278"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: next-landing-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: next-landing-pods #create pods with label name
+   spec:
+     containers:
+       - name: next-landing-cont
+         image: reyshazni/next-landing-production:50bb278
+         imagePullPolicy: Always
+         ports:
+           - containerPort: 3000  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: next-landing
+  namespace: production
+  labels:
+   app: next-landing #create services with label name
+   commit-hash: "50bb278"
+spec:
+  selector:
+    app: next-landing-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
