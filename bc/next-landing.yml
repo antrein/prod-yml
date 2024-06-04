@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: next-landing #create deployment with label name
-   commit-hash: "472392d"
+   commit-hash: "39a42b9"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: next-landing-cont
-         image: reyshazni/next-landing-production:472392d
+         image: reyshazni/next-landing-production:39a42b9
          imagePullPolicy: Always
          ports:
            - containerPort: 3000  
@@ -31,7 +31,7 @@ metadata:
   namespace: production
   labels:
    app: next-landing #create services with label name
-   commit-hash: "472392d"
+   commit-hash: "39a42b9"
 spec:
   selector:
     app: next-landing-pods #targeting service name
