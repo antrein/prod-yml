@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: dd-dashboard-auth #create deployment with label name
-   commit-hash: "c004327"
+   commit-hash: "e463951"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: dd-dashboard-auth-cont
-         image: reyshazni/dd-dashboard-auth-production:c004327
+         image: reyshazni/dd-dashboard-auth-production:e463951
          imagePullPolicy: Always
          ports:
           - containerPort: 8080
@@ -34,7 +34,7 @@ metadata:
   namespace: production
   labels:
    app: dd-dashboard-auth #create services with label name
-   commit-hash: "c004327"
+   commit-hash: "e463951"
 spec:
   selector:
     app: dd-dashboard-auth-pods #targeting service name
