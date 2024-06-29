@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: dd-queue-auth
+ namespace: production
+ labels:
+   app: dd-queue-auth #create deployment with label name
+   commit-hash: "5c66a32"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: dd-queue-auth-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: dd-queue-auth-pods #create pods with label name
+   spec:
+     containers:
+       - name: dd-queue-auth-cont
+         image: reyshazni/dd-queue-auth-production:5c66a32
+         imagePullPolicy: Always
+         ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 9090
+            protocol: TCP
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dd-queue-auth
+  namespace: production
+  labels:
+   app: dd-queue-auth #create services with label name
+   commit-hash: "5c66a32"
+spec:
+  selector:
+    app: dd-queue-auth-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - name: rest
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  - name: grpc
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
