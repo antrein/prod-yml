@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
       - name: gateway-proxy
-        image: reyshazni/gateway-proxy-production:d97045b
+        image: reyshazni/gateway-proxy-production:bdd0a8e
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
         - name: SERVICE_URL
-          value: "https://<project_domain>"
+          value: "https://<project_domain>/<url_path>"
         - name: TOKEN_SECRET
           value: "CTPVqgse4sEwcPXEKUYXXeZhioDb5BnM"
         - name: PROJECT_ID
@@ -66,7 +66,7 @@ spec:
   - host: <project_id>.antrein.com
     http:
       paths:
-      - path: <url_path>
+      - path: /
         pathType: Prefix
         backend:
           service:
