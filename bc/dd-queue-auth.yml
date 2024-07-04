@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: dd-queue-auth #create deployment with label name
-   commit-hash: "0951b81"
+   commit-hash: "ac7db45"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: dd-queue-auth-cont
-         image: reyshazni/dd-queue-auth-production:0951b81
+         image: reyshazni/dd-queue-auth-production:ac7db45
          imagePullPolicy: Always
          ports:
           - containerPort: 8080
@@ -34,7 +34,7 @@ metadata:
   namespace: production
   labels:
    app: dd-queue-auth #create services with label name
-   commit-hash: "0951b81"
+   commit-hash: "ac7db45"
 spec:
   selector:
     app: dd-queue-auth-pods #targeting service name
