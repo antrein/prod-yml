@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gateway-proxy
-        image: reyshazni/gateway-proxy-production:b2a1c4b
+        image: reyshazni/gateway-proxy-production:3ac600f
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -29,6 +29,8 @@ spec:
           value: <project_id>
         - name: URL_PATH
           value: <url_path>
+        - name: INFRA_MODE
+          value: <infra_mode>
 ---
 apiVersion: v1
 kind: Service
