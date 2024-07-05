@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gateway-proxy
-        image: reyshazni/gateway-proxy-production:60ab454
+        image: reyshazni/gateway-proxy-production:ad57791
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -52,6 +52,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.allow-http: "true"
     nginx.ingress.kubernetes.io/backend-protocol: HTTP
     nginx.ingress.kubernetes.io/proxy-body-size: 3M
@@ -83,4 +84,4 @@ spec:
   tls:
   - hosts:
     - <project_id>.<base_url>
-    secretName: <project_id>-tls
+    secretName: <project_id>-redirect-tls
