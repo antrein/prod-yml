@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: bc-queue
+ namespace: production
+ labels:
+   app: bc-queue #create deployment with label name
+   commit-hash: "9cf69fe"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: bc-queue-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: bc-queue-pods #create pods with label name
+   spec:
+     containers:
+       - name: bc-queue-cont
+         image: reyshazni/bc-queue-production:9cf69fe
+         imagePullPolicy: Always
+         ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 9090
+            protocol: TCP
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bc-queue
+  namespace: production
+  labels:
+   app: bc-queue #create services with label name
+   commit-hash: "9cf69fe"
+spec:
+  selector:
+    app: bc-queue-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - name: rest
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  - name: grpc
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
