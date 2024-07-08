@@ -5,7 +5,7 @@ metadata:
   name: gateway-proxy
   namespace: <project_id>
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: gateway-proxy
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gateway-proxy
-        image: reyshazni/gateway-proxy-production:4452aa8
+        image: reyshazni/gateway-proxy-production:5153714
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
