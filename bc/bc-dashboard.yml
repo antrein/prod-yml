@@ -5,9 +5,9 @@ metadata:
  namespace: production
  labels:
    app: bc-dashboard #create deployment with label name
-   commit-hash: "fe41392"
+   commit-hash: "11052c6"
 spec:
- replicas: 5
+ replicas: 3
  selector:
    matchLabels:
      app: bc-dashboard-pods #target pods with this label
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: bc-dashboard-cont
-         image: reyshazni/bc-dashboard-production:fe41392
+         image: reyshazni/bc-dashboard-production:11052c6
          imagePullPolicy: Always
          ports:
           - containerPort: 8080
@@ -34,7 +34,7 @@ metadata:
   namespace: production
   labels:
    app: bc-dashboard #create services with label name
-   commit-hash: "fe41392"
+   commit-hash: "11052c6"
 spec:
   selector:
     app: bc-dashboard-pods #targeting service name
