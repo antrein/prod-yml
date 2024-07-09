@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: bc-queue #create deployment with label name
-   commit-hash: "6a532ff"
+   commit-hash: "125dfe7"
 spec:
  replicas: 3
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: bc-queue-cont
-         image: reyshazni/bc-queue-production:6a532ff
+         image: reyshazni/bc-queue-production:125dfe7
          imagePullPolicy: Always
          ports:
           - containerPort: 8080
@@ -34,7 +34,7 @@ metadata:
   namespace: production
   labels:
    app: bc-queue #create services with label name
-   commit-hash: "6a532ff"
+   commit-hash: "125dfe7"
 spec:
   selector:
     app: bc-queue-pods #targeting service name
