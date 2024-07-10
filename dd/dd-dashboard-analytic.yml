@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: dd-dashboard-analytic
+ namespace: production
+ labels:
+   app: dd-dashboard-analytic #create deployment with label name
+   commit-hash: "38052e7"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: dd-dashboard-analytic-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: dd-dashboard-analytic-pods #create pods with label name
+   spec:
+     containers:
+       - name: dd-dashboard-analytic-cont
+         image: reyshazni/dd-dashboard-analytic-production:38052e7
+         imagePullPolicy: Always
+         ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 9090
+            protocol: TCP
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dd-dashboard-analytic
+  namespace: production
+  labels:
+   app: dd-dashboard-analytic #create services with label name
+   commit-hash: "38052e7"
+spec:
+  selector:
+    app: dd-dashboard-analytic-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - name: rest
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  - name: grpc
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
