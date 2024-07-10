@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: dd-dashboard-auth
- namespace: production
- labels:
-   app: dd-dashboard-auth #create deployment with label name
-   commit-hash: "c978363"
+  name: dd-dashboard-auth
+  namespace: production
+  labels:
+    app: dd-dashboard-auth #create deployment with label name
+    commit-hash: '6648d87'
 spec:
- replicas: 1
- selector:
-   matchLabels:
-     app: dd-dashboard-auth-pods #target pods with this label
- template:
-   metadata:
-     labels:
-       app: dd-dashboard-auth-pods #create pods with label name
-   spec:
-     containers:
-       - name: dd-dashboard-auth-cont
-         image: reyshazni/dd-dashboard-auth-production:c978363
-         imagePullPolicy: Always
-         ports:
-          - containerPort: 8080
-            protocol: TCP
-          - containerPort: 9090
-            protocol: TCP
-            
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dd-dashboard-auth-pods #target pods with this label
+  template:
+    metadata:
+      labels:
+        app: dd-dashboard-auth-pods #create pods with label name
+    spec:
+      containers:
+        - name: dd-dashboard-auth-cont
+          image: reyshazni/dd-dashboard-auth-production:6648d87
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 9090
+              protocol: TCP
+
 ---
 apiVersion: v1
 kind: Service
@@ -33,18 +33,18 @@ metadata:
   name: dd-dashboard-auth
   namespace: production
   labels:
-   app: dd-dashboard-auth #create services with label name
-   commit-hash: "c978363"
+    app: dd-dashboard-auth #create services with label name
+    commit-hash: '6648d87'
 spec:
   selector:
     app: dd-dashboard-auth-pods #targeting service name
   type: ClusterIP
   ports:
-  - name: rest
-    protocol: TCP
-    port: 8080
-    targetPort: 8080
-  - name: grpc
-    protocol: TCP
-    port: 9090
-    targetPort: 9090
+    - name: rest
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: grpc
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
