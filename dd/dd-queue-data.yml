@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: dd-queue-data
- namespace: production
- labels:
-   app: dd-queue-data #create deployment with label name
-   commit-hash: "6013441"
+  name: dd-queue-data
+  namespace: production
+  labels:
+    app: dd-queue-data #create deployment with label name
+    commit-hash: '7c7d1b7'
 spec:
- replicas: 1
- selector:
-   matchLabels:
-     app: dd-queue-data-pods #target pods with this label
- template:
-   metadata:
-     labels:
-       app: dd-queue-data-pods #create pods with label name
-   spec:
-     containers:
-       - name: dd-queue-data-cont
-         image: reyshazni/dd-queue-data-production:6013441
-         imagePullPolicy: Always
-         ports:
-          - containerPort: 8080
-            protocol: TCP
-          - containerPort: 9090
-            protocol: TCP
-            
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dd-queue-data-pods #target pods with this label
+  template:
+    metadata:
+      labels:
+        app: dd-queue-data-pods #create pods with label name
+    spec:
+      containers:
+        - name: dd-queue-data-cont
+          image: reyshazni/dd-queue-data-production:7c7d1b7
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 9090
+              protocol: TCP
+
 ---
 apiVersion: v1
 kind: Service
@@ -33,18 +33,18 @@ metadata:
   name: dd-queue-data
   namespace: production
   labels:
-   app: dd-queue-data #create services with label name
-   commit-hash: "6013441"
+    app: dd-queue-data #create services with label name
+    commit-hash: '7c7d1b7'
 spec:
   selector:
     app: dd-queue-data-pods #targeting service name
   type: ClusterIP
   ports:
-  - name: rest
-    protocol: TCP
-    port: 8080
-    targetPort: 8080
-  - name: grpc
-    protocol: TCP
-    port: 9090
-    targetPort: 9090
+    - name: rest
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: grpc
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
