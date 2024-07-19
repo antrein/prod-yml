@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: sveltekit-tailwind-daisy-dashboard
+ namespace: production
+ labels:
+   app: sveltekit-tailwind-daisy-dashboard #create deployment with label name
+   commit-hash: "b69646f"
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: sveltekit-tailwind-daisy-dashboard-pods #target pods with this label
+ template:
+   metadata:
+     labels:
+       app: sveltekit-tailwind-daisy-dashboard-pods #create pods with label name
+   spec:
+     containers:
+       - name: sveltekit-tailwind-daisy-dashboard-cont
+         image: reyshazni/sveltekit-tailwind-daisy-dashboard-production:b69646f
+         imagePullPolicy: Always
+         ports:
+           - containerPort: 4173  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sveltekit-tailwind-daisy-dashboard
+  namespace: production
+  labels:
+   app: sveltekit-tailwind-daisy-dashboard #create services with label name
+   commit-hash: "b69646f"
+spec:
+  selector:
+    app: sveltekit-tailwind-daisy-dashboard-pods #targeting service name
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4173
