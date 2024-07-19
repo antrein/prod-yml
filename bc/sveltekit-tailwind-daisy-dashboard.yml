@@ -5,7 +5,7 @@ metadata:
  namespace: production
  labels:
    app: sveltekit-tailwind-daisy-dashboard #create deployment with label name
-   commit-hash: "822258f"
+   commit-hash: "b7906d9"
 spec:
  replicas: 1
  selector:
@@ -18,7 +18,7 @@ spec:
    spec:
      containers:
        - name: sveltekit-tailwind-daisy-dashboard-cont
-         image: reyshazni/sveltekit-tailwind-daisy-dashboard-production:822258f
+         image: reyshazni/sveltekit-tailwind-daisy-dashboard-production:b7906d9
          imagePullPolicy: Always
          ports:
            - containerPort: 5173  
@@ -31,7 +31,7 @@ metadata:
   namespace: production
   labels:
    app: sveltekit-tailwind-daisy-dashboard #create services with label name
-   commit-hash: "822258f"
+   commit-hash: "b7906d9"
 spec:
   selector:
     app: sveltekit-tailwind-daisy-dashboard-pods #targeting service name
